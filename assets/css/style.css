@@ -116,6 +116,10 @@ header {
 .col-12 {
     flex: 0 0 100%;
   }
+
+ul {
+  list-style-type: none;
+}
   
 /* col-sm */
 @media screen and (min-width: 640px) {

@@ -2,8 +2,8 @@
 var apiKey = "442bae2eea7683d5465de74730b512c3";
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#city-name");
-var currentContainerEl = document.querySelector("#current-weather-container");
-var weatherSearchTerm = document.querySelector("#weather-search-term");
+var todaysWeatherData = document.querySelector("#todays-weather-data");
+var citySearchTerm = document.querySelector("#city-search-term");
 // var searchedArr = JSON.parse(localStorage.getItem("searchedItems")) || [];
 // let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     // console.log(searchHistory);
@@ -36,11 +36,20 @@ var getCityWeather = function(city) {
           });
         });
 };
+  
+// today's date
+(function() {
+  var now = moment().format("(l)");
+  var displayMoment = document.getElementById('todaysDate');
+  displayMoment.innerHTML = now;
+
+  console.log(now);
+})();
 
 var displayWeather = function(weather, searchTerm) {
   // clear old content
-  currentContainerEl.textContent = "";
-  weatherSearchTerm.textContent = searchTerm;
+  todaysWeatherData.textContent = "";
+  citySearchTerm.textContent = searchTerm;
 
   console.log(weather);
   console.log(searchTerm);
