@@ -29,7 +29,7 @@ var formSubmitHandler = function(event) {
     var city = cityInputEl.value.trim();
 
     if (city) {
-        displayWeather(city);
+        getCityWeather(city);
         cityInputEl.value = "";
       } else {
         alert("Please enter a city name!");
@@ -40,9 +40,9 @@ var formSubmitHandler = function(event) {
 
 // search for city weather from api
 var getCityWeather = function(city) {
-    //format the api url
+    // format the api url
     var apiUrlToday = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apiKey;
-    var apiUrlForecast = "https:api.openweathermap.org/data/2.5/forecast?q="+city+"&appid="+apiKey;
+    var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&appid="+apiKey;
 
     // make a request to the url
     fetch(apiUrlToday)
@@ -54,7 +54,7 @@ var getCityWeather = function(city) {
       })
       .catch (function(error) {
         console.log(error);
-     });
+      });
 
     // make a request to the url
     fetch(apiUrlForecast)
@@ -67,8 +67,8 @@ var getCityWeather = function(city) {
       .catch (function(error) {
         console.log(error);
       });
-  };
-
+    };
+    
 // search for city weather from api
 //var getForecastWeather = function(city) {
   
