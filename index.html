@@ -27,17 +27,23 @@
             <div id="todays-weather-container">
                 <h3 id="city-date"><span id="city-search-term"></span> <span id="todaysDate"></span></h3>
                 <div id="todays-weather-data">
-                    <ul id="today-list-group">
-                        <li id="today-temp" class="today-list-item"></li>
-                        <li id="today-humidity" class="today-list-item"></li>
-                        <li id="today-wind" class="today-list-item"></li>
-                        <li id="today-uv" class="today-list-item"></li>
-                    </ul>
+                      <p id="today-temp" class="today-list-item"></p>
+                      <p id="today-humidity" class="today-list-item"></p>
+                      <p id="today-wind" class="today-list-item"></p>
+                      <p id="today-uv" class="today-list-item"></p>
                 </div>
             </div>
             <div id="forecast-weather-container">
-                <main class="col-12 col-lg-9 d-flex flex-column">
-                    <div class="m-5 row justify-content-around"></div>
+                <main class="col-12 col-md-8 d-flex flex-column">
+                    <div class="m-5 row justify-content-around">
+                      <h3 id="forecast-subtitle" class="card-header text-uppercase"></h3>
+                      <div id="forecast-weather-data" class="col-12 col-md-1 forecast-card">
+                        <h4 class="forecast-date"></h4>
+                        <img class="forecast-icon">
+                        <p class="forecast-temp"></p>
+                        <p class="forecast-humidity"></p>
+                      </div>
+                    </div>
                 </main>
             </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

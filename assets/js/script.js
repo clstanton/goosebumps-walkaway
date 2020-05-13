@@ -29,7 +29,7 @@ var formSubmitHandler = function(event) {
     var city = cityInputEl.value.trim();
 
     if (city) {
-        getTodayWeather(city);
+        displayWeather(city);
         cityInputEl.value = "";
       } else {
         alert("Please enter a city name!");
@@ -39,9 +39,10 @@ var formSubmitHandler = function(event) {
   };
 
 // search for city weather from api
-var getTodayWeather = function(city) {
-    // format the api url
+var getCityWeather = function(city) {
+    //format the api url
     var apiUrlToday = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apiKey;
+    var apiUrlForecast = "https:api.openweathermap.org/data/2.5/forecast?q="+city+"&appid="+apiKey;
 
     // make a request to the url
     fetch(apiUrlToday)
@@ -51,28 +52,27 @@ var getTodayWeather = function(city) {
       .then(function(response) {
           displayWeather(response, city);
       })
-      .catch (function(error){
+      .catch (function(error) {
         console.log(error);
-    });
-};
+     });
+
+    // make a request to the url
+    fetch(apiUrlForecast)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        displayWeather(response, city);
+      })
+      .catch (function(error) {
+        console.log(error);
+      });
+  };
 
 // search for city weather from api
-var getForecastWeather = function(city) {
-  // format the api url
-  var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&appid="+apiKey;
-    
-  // make a request to the url
-  fetch(apiUrlForecast)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(response) {
-      displayWeather(response, city);
-    })
-    .catch (function(error){
-      console.log(error);
-    });
-  };
+//var getForecastWeather = function(city) {
+  
+  //};
 
 var displayWeather = function(response, searchTerm) {
   // clear old content
@@ -83,9 +83,25 @@ var displayWeather = function(response, searchTerm) {
   todayWind.innerHTML = "Wind Speed: " + (response.wind.speed) + " MPH";
   todayUv.innerHTML = "UV Index: ";
 
-  console.log(todayListGroup);
-  console.log(response);
+  var forecastSubtitle = document.querySelector("#forecast-subtitle");
+  forecastSubtitle.innerHTML = "5-Day Forecast:";
+  var forecastDate = document.querySelector(".forecast-date");
+  var forecastIcon = document.querySelector(".forecast-icon");
+  var forecastTemp = document.querySelector(".forecast-temp");
+  var forecastHumidity = document.querySelector(".forecast-humidity");
+  var forecastEl = document.querySelector("#forecast-weather-data");
+  for (var i=0; i<forecastEl.length; i++) {
+      forecastEl[i].innerHTML = "";
+      var forecastIndex = i*8 + 4;
+      forecastDate.innerHTML = "Date: " + (response.list[forecastIndex].dt)
+      forecastTemp.innerHTML = "Temp: " + (response.list[forecastIndex].main.temp) +" &#176F";
+        forecastEl[i].append(forecastTemp);
+      forecastHumidity.innerHTML = "Humidity: " + (response.list[forecastIndex].main.humidity + "%");
+        forecastEl[i].append(forecastHumidity);
+    }
+
   console.log(searchTerm);
+  console.log(response);
 }
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
